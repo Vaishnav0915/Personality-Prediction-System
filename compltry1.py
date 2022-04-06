@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat May 29 17:31:42 2021
-
 @author: vadre
 """
 
@@ -22,7 +20,7 @@ import os
 
 # p1=r"C:\Users\vadre\Documents\adt project\new.xlsx"
 # p2=r"C:\Users\vadre\Documents\adt project\train.csv"
-t1=pd.read_excel("new.xlsx")
+t1=pd.read_excel(r"C:\Users\vadre\Documents\adt project\new.xlsx")
 print(t1)
 #print(t1.iloc[:,16])
 #print(t1.columns[16])
@@ -68,11 +66,11 @@ tds.delete_cols(9,2)
 td.save('td.xlsx')
 testdata=pd.read_excel('td.xlsx')
 testdata.to_csv('test dataset.csv',index=False)
-#os.remove('o1.xlsx')
-#os.remove('td.xlsx')
+os.remove('o1.xlsx')
+os.remove('td.xlsx')
     
     
-data =pd.read_csv('train dataset.csv')
+data =pd.read_csv(r"C:\Users\vadre\Documents\adt project\train dataset.csv")
 array = data.values
 for i in range(len(array)):
     if array[i][0]=="Male":
@@ -112,19 +110,28 @@ for i in range(len(y_pred)) :
 DF = pd.DataFrame(y_pred,columns=['Predicted Personality'])
 DF.index=DF.index+1
 DF.index.names = ['Person No']
-DF.to_csv("opt.csv")
+DF.to_csv(r"C:\Users\vadre\Documents\adt project\opt.csv")
 
-    
 
-#print("Step1: Aggregate the answers obtained form the sheet, take only the required inputs for prediction, convert to .csv\n")
-#print("Step2:The csv is extracted which is a test dataset and the prediction starts with the training dataset\n")
-#print("\n\nEnter the source file path")
-#p1=input()
-#print("\n\nEnter the destination file path")
-#p2=input()
-#if p1=='' p2=='':
-    #print("please input all the requird paths")
-#else: excelhandling(p1,p2)
+
+
+eh=pd.read_csv("opt.csv")
+n1=pd.read_csv(r"C:\Users\vadre\Documents\adt project\opt.csv")
+n1.to_excel(r"C:\Users\vadre\Documents\adt project\eh1.xlsx", index=False)
+df2=pd.DataFrame()
+eh1=load_workbook(r"C:\Users\vadre\Documents\adt project\new.xlsx")
+ehs1=eh1["Sheet1"]
+ehs1.delete_cols(1,1)
+ehs1.delete_cols(4,53)
+eh1.save(r"C:\Users\vadre\Documents\adt project\new1.xlsx")
+eh2=load_workbook(r"C:\Users\vadre\Documents\adt project\eh1.xlsx")
+ehs2=eh2["Sheet1"]
+ehs2.delete_cols(1,1)
+eh2.save(r"C:\Users\vadre\Documents\adt project\eh1-1.xlsx")
+n1=pd.read_excel(r"C:\Users\vadre\Documents\adt project\new1.xlsx")
+n2=pd.read_excel(r"C:\Users\vadre\Documents\adt project\eh1-1.xlsx")
+df=pd.concat([n1,n2],axis=1)
+df.to_csv(r"C:\Users\vadre\Documents\adt project\opt2.csv",index=False)
 
 
 
